@@ -23,7 +23,7 @@ Start the development server...
 npm run dev
 ```
 
-Open your browser to [http://localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
+Open your browser to [http://localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src` and once you save it, your browser should automatically load the new changes.
 
 ## Building and running in production mode
 
@@ -48,6 +48,6 @@ If you're building a single-page app (SPA) with multiple routes, sirv needs to b
 
 ## Using classic livereload
 
-The default `dev` script uses hot module reloading, which means if you modify a component's source code, the browser will only reload that component and preserve the current state where possible.
+The default `dev` script uses hot module reloading, which means if you modify a component's source code, the browser will only reload that specific component and preserve the current state where possible.
 
 If hot reloading is causing trouble, you can use the `dev:livereload` script to enable the classic livereload, which will reload the entire app each time changes are saved.
