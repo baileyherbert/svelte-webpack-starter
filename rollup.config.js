@@ -47,7 +47,7 @@ export default {
 				// By default, when the hot option is enabled, the `css` option of this plugin (same option as official
 				// plugin) will be changed to `false`, because extracting CSS doesn't work with HMR currently. You can
 				// use this option to disable this behaviour if it cause problems with your setup.
-				noDisableCss: true,
+				noDisableCss: false,
 
 				// When you change only the <style> part of a component, then only the CSS will be reinjected. Existing
 				// component instances won't be recreated. Set `false` to force recreation.
