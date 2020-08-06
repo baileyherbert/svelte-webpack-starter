@@ -54,7 +54,7 @@ The `build` script will compile the app for production. By default, the bundle w
 npm run build
 ```
 
-To run the production build, use the `start` command and open [http://localhost:8080](http://localhost:8080) in your browser. You can change the port by modifying the command your package.json.
+To run the production build, use the `start` command and open [http://localhost:8080](http://localhost:8080) in your browser. You can change the port by modifying the command in your package.json.
 
 ```bash
 npm run start
