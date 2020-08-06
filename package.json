@@ -1,31 +1,38 @@
 {
 	"private": true,
 	"scripts": {
-		"build": "rollup -c",
-		"dev": "rollup -c -w",
-		"dev:livereload": "rollup -c -w --environment LIVERELOAD",
-		"start": "sirv public",
+		"build": "cross-env NODE_ENV=production webpack",
+		"dev": "webpack-dev-server --content-base public --hot",
+		"start": "serve public -l 8080",
 		"validate": "svelte-check"
 	},
 	"devDependencies": {
-		"@rollup/plugin-commonjs": "^12.0.0",
-		"@rollup/plugin-node-resolve": "^8.0.0",
-		"@rollup/plugin-typescript": "^4.0.0",
+		"@babel/core": "^7.11.1",
+		"@babel/preset-env": "^7.11.0",
 		"@tsconfig/svelte": "^1.0.0",
-		"exit-hook": "^2.2.0",
-		"rollup": "^2.3.4",
-		"rollup-plugin-hot": "^0.1.0",
-		"rollup-plugin-livereload": "^1.0.0",
-		"rollup-plugin-svelte-hot": "^0.10.0",
-		"rollup-plugin-terser": "^5.1.2",
+		"autoprefixer": "^9.8.6",
+		"babel-loader": "^8.1.0",
+		"clean-webpack-plugin": "^3.0.0",
+		"cross-env": "^7.0.2",
+		"css-loader": "^4.2.0",
+		"mini-css-extract-plugin": "^0.9.0",
+		"optimize-css-assets-webpack-plugin": "^5.0.3",
+		"postcss-loader": "^3.0.0",
 		"sass": "^1.26.10",
-		"svelte": "^3.0.0",
-		"svelte-check": "^1.0.0",
+		"sass-loader": "^9.0.3",
+		"serve": "^11.3.2",
+		"svelte": "^3.24.1",
+		"svelte-check": "^1.0.8",
+		"svelte-loader-hot": "^0.3.0",
 		"svelte-preprocess": "^4.0.0",
-		"tslib": "^2.0.0",
-		"typescript": "^3.9.3"
+		"terser-webpack-plugin": "^4.0.0",
+		"typescript": "^3.9.3",
+		"webpack": "^4.44.1",
+		"webpack-cli": "^3.3.12",
+		"webpack-dev-server": "^3.11.0"
 	},
-	"dependencies": {
-		"sirv-cli": "^1.0.0"
-	}
+	"dependencies": {},
+	"browserslist": [
+		"defaults"
+	]
 }

@@ -4,6 +4,7 @@
 	"exclude": ["node_modules/*", "__sapper__/*", "public/*"],
 	"compilerOptions": {
 		"esModuleInterop": true,
+		"importsNotUsedAsValues": "remove",
 		"types": [
 			"svelte",
 			"svelte/store",

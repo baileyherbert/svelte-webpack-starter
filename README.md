@@ -1,53 +1,85 @@
 # Svelte Template
+This is my personal starter template for creating [Svelte](https://svelte.dev) apps. It's preconfigured out of the box with:
 
-This is my personal starter template for [Svelte](https://svelte.dev) apps. It's preconfigured out of the box for TypeScript, SASS, and Hot Module Reloading.
+- Webpack
+- Hot module replacement
+- TypeScript
+- SASS
+- Babel
+- Autoprefixer
 
-## Get started
+## Getting started
 
-I recommend using [degit](https://github.com/Rich-Harris/degit) to clone this repo:
+### Installation
+To quickly get started with this template, use [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
 npx degit baileyherbert/svelte-template svelte-app
 cd svelte-app
 ```
 
-Install dependencies...
+Then, install dependencies.
 
 ```bash
 npm install
 ```
 
-Start the development server...
+### Starting the development server
+The `dev` script will compile the app, start the development server, and enable hot replacement for components and styles. Open [http://localhost:8080](http://localhost:8080) in your browser to see the app.
 
 ```bash
 npm run dev
 ```
 
-Open your browser to [http://localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src` and once you save it, your browser should automatically load the new changes.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
+### Building for production
+The `build` script will compile the app for production. By default, the bundle will be created at `/public/build/`, which means your public directory will contain everything you need to run the app.
 
 ```bash
 npm run build
 ```
 
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
+To test the production build, use the `start` command and open [http://localhost:8080](http://localhost:8080) in your browser.
 
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
+```bash
+npm run start
 ```
 
-## Using classic livereload
+## Usage
 
-The default `dev` script uses hot module reloading, which means if you modify a component's source code, the browser will only reload that specific component and preserve the current state where possible.
+### Global styles
+There's no `global.css` file in this template. Instead, the `/src/styles/index.scss` file will be compiled and embedded at the top of the bundled CSS, effectively making it a global stylesheet.
 
-If hot reloading is causing trouble, you can use the `dev:livereload` script to enable the classic livereload, which will reload the entire app each time changes are saved.
+> 💡  You can edit `webpack.config.js` to change or remove this file from the bundle, or to use a different preprocessor.
+
+### Single page applications
+If you're building a single page application (which needs multiple routes), edit the `"dev"` command in your package.json and add the `--history-api-fallback` flag.
+
+```js
+"dev": "webpack-dev-server [...] --history-api-fallback"
+```
+
+### Target browsers
+This template will automatically convert your CSS and JavaScript output, using Autoprefixer and Babel, in order to work for your target browsers as listed under `browserslist` in your package.json file. Check out the list of [browserslist queries](https://github.com/browserslist/browserslist#full-list) to customize this.
+
+```json
+{
+	"browserslist": [
+		"defaults"
+	]
+}
+```
+Note that you will need to restart the development server before these changes take affect.
+
+### Disabling Babel
+In production builds, Babel will transpile your bundle to work on your target browsers. This will increase your bundle size. If you don't need to support older browsers, you can disable Babel entirely by changing the `useBabel` variable at the top of `webpack.config.js`:
+
+```js
+const useBabel = false;
+```
+
+### Enabling source maps in production
+By default, this template won't generate source maps for production bundles in order to avoid exposing your source code. If you need to enable source maps in production (such as for debugging), simply update the `sourceMapsInProduction` variable at the top of `webpack.config.js`.
+
+```js
+const sourceMapsInProduction = true;
+```
