@@ -83,3 +83,18 @@ By default, this template won't generate source maps for production bundles in o
 ```js
 const sourceMapsInProduction = true;
 ```
+
+### Path mapping
+This template automatically configures Webpack's module resolution aliases according to your `tsconfig.json` file. By default, the `src` alias is mapped to your `src/` directory, which means you can import like this from anywhere in the app:
+
+```js
+import Navbar from 'src/components/Navbar.svelte';
+```
+
+If you wish to add additional aliases, you only need to edit the `paths` property in your `tsconfig.json`, and they will be automatically applied to Webpack:
+
+```json
+"paths": {
+	"src": ["src"]
+}
+```

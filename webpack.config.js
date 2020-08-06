@@ -22,8 +22,7 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			svelte: path.resolve('node_modules', 'svelte'),
-			src: path.resolve(__dirname, './src/')
+			svelte: path.resolve('node_modules', 'svelte')
 		},
 		extensions: ['.mjs', '.js', '.ts', '.svelte'],
 		mainFields: ['svelte', 'browser', 'module', 'main']
@@ -107,6 +106,26 @@ module.exports = {
 	devtool: (prod && !sourceMapsInProduction) ? false: 'source-map'
 };
 
+// Load path mapping from the tsconfig.json file
+const tsconfig = require(path.resolve(__dirname, 'tsconfig.json'));
+if ('compilerOptions' in tsconfig && 'paths' in tsconfig.compilerOptions) {
+	const aliases = tsconfig.compilerOptions.paths;
+	for (const alias in aliases) {
+		let paths = aliases[alias].map(p => path.resolve(__dirname, p));
+
+		if (paths.length === 1) {
+			paths = paths[0];
+		}
+
+		for (const p of paths) {
+			if (!(alias in module.exports.resolve.alias)) {
+				module.exports.resolve.alias[alias] = paths;
+			}
+		}
+	}
+}
+
+// These options should only apply to production builds
 if (prod) {
 	// Clean the build directory for production builds
 	module.exports.plugins.push(new CleanWebpackPlugin());
