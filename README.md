@@ -65,7 +65,7 @@ npm run start
 ### Global styles
 There's no `global.css` file in this template. Instead, the `/src/styles/index.scss` file will be compiled and embedded at the top of the bundled CSS, effectively making it a global stylesheet.
 
-> 💡  You can edit `webpack.config.js` to change or remove this file from the bundle, or to use a different preprocessor.
+> 💡  You can edit `webpack.config.js` to change this path or remove the file from the bundle.
 
 ### Single page applications
 If you're building a single page application (which needs multiple routes), edit the `"dev"` command in your package.json and add the `--history-api-fallback` flag.
@@ -75,7 +75,7 @@ If you're building a single page application (which needs multiple routes), edit
 ```
 
 ### Targeting browsers
-This template will automatically convert your CSS and JavaScript output, using Autoprefixer and Babel, in order to work for your target browsers as listed under `browserslist` in your package.json file. Check out the list of [browserslist queries](https://github.com/browserslist/browserslist#full-list) to customize this.
+This template will use [Babel](https://babeljs.io/docs/en/) and [Autoprefixer](https://www.npmjs.com/package/autoprefixer) to make the bundles work in your target browsers, which are listed under `browserslist` in your package.json file. Check out the list of [browserslist queries](https://github.com/browserslist/browserslist#full-list) to customize this.
 
 ```json
 {
@@ -84,24 +84,25 @@ This template will automatically convert your CSS and JavaScript output, using A
 	]
 }
 ```
-Note that you will need to restart the development server before these changes take affect.
+
+Note that Babel is only active for production builds, so it won't slow down your development.
 
 ### Disabling Babel
-In production builds, Babel will transpile your bundle to work on your target browsers. This will increase your bundle size. If you don't need to support older browsers, you can disable Babel entirely by changing the `useBabel` variable at the top of `webpack.config.js`:
+If you don't need to support older browsers, you can reduce your bundle size by disabling Babel. Just change the `useBabel` variable at the top of `webpack.config.js`:
 
 ```js
 const useBabel = false;
 ```
 
 ### Enabling source maps in production
-By default, this template won't generate source maps for production bundles in order to avoid exposing your source code. If you need to enable source maps in production (such as for debugging), simply update the `sourceMapsInProduction` variable at the top of `webpack.config.js`.
+By default, this template won't generate source maps for production bundles in order to avoid exposing your source code. If you need to enable source maps in production (such as for debugging), update the `sourceMapsInProduction` variable at the top of `webpack.config.js`.
 
 ```js
 const sourceMapsInProduction = true;
 ```
 
 ### Path mapping
-This template automatically configures Webpack's module resolution aliases according to your `tsconfig.json` file. By default, the `src` alias is mapped to your `src/` directory, which means you can import like this from anywhere in the app:
+By default, the `src` alias is mapped to your `src/` directory, which means you can import like this from anywhere in the app:
 
 ```js
 import Navbar from 'src/components/Navbar.svelte';
@@ -114,3 +115,5 @@ If you wish to add additional aliases, you only need to edit the `paths` propert
 	"src": ["src"]
 }
 ```
+
+Note that you *do not* need to add the alias to your Webpack configuration. It will be applied automatically from your tsconfig file.
