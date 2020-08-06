@@ -1,4 +1,4 @@
-# Svelte Template
+# Svelte Webpack Starter
 This is my personal starter template for creating [Svelte](https://svelte.dev) apps. It's preconfigured out of the box with:
 
 - Webpack
@@ -14,7 +14,7 @@ This is my personal starter template for creating [Svelte](https://svelte.dev) a
 To quickly get started with this template, use [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
-npx degit baileyherbert/svelte-template svelte-app
+npx degit baileyherbert/svelte-webpack-starter svelte-app
 cd svelte-app
 ```
 
