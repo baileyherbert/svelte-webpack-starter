@@ -12,6 +12,10 @@
 			"svelte/transition",
 			"svelte/animate",
 			"svelte/easing"
-		]
+		],
+		"baseUrl": ".",
+		"paths": {
+			"src": ["src"]
+		}
 	}
 }
