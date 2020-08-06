@@ -8,6 +8,22 @@ This is my personal starter template for creating [Svelte](https://svelte.dev) a
 - Babel
 - Autoprefixer
 
+---
+
+- [Getting started](#getting-started)
+	- [Installation](#installation)
+	- [Starting the development server](#starting-the-development-server)
+	- [Building for production](#building-for-production)
+- [Usage](#usage)
+	- [Global styles](#global-styles)
+	- [Single page applications](#single-page-applications)
+	- [Targeting browsers](#targeting-browsers)
+	- [Disabling Babel](#disabling-babel)
+	- [Enabling source maps in production](#enabling-source-maps-in-production)
+	- [Path mapping](#path-mapping)
+
+---
+
 ## Getting started
 
 ### Installation
@@ -38,7 +54,7 @@ The `build` script will compile the app for production. By default, the bundle w
 npm run build
 ```
 
-To test the production build, use the `start` command and open [http://localhost:8080](http://localhost:8080) in your browser.
+To run the production build, use the `start` command and open [http://localhost:8080](http://localhost:8080) in your browser. You can change the port by modifying the command your package.json.
 
 ```bash
 npm run start
@@ -58,7 +74,7 @@ If you're building a single page application (which needs multiple routes), edit
 "dev": "webpack-dev-server [...] --history-api-fallback"
 ```
 
-### Target browsers
+### Targeting browsers
 This template will automatically convert your CSS and JavaScript output, using Autoprefixer and Babel, in order to work for your target browsers as listed under `browserslist` in your package.json file. Check out the list of [browserslist queries](https://github.com/browserslist/browserslist#full-list) to customize this.
 
 ```json
