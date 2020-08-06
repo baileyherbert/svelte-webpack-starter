@@ -25,6 +25,7 @@
 		"svelte-loader-hot": "^0.3.0",
 		"svelte-preprocess": "^4.0.0",
 		"terser-webpack-plugin": "^4.0.0",
+		"ts-loader": "^8.0.2",
 		"typescript": "^3.9.3",
 		"webpack": "^4.44.1",
 		"webpack-cli": "^3.3.12",
