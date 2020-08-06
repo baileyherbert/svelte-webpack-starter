@@ -102,7 +102,7 @@ const sourceMapsInProduction = true;
 ```
 
 ### Path mapping
-By default, the `src` alias is mapped to your `src/` directory, which means you can import like this from anywhere in the app:
+By default, the `src` alias is mapped to your `src/` directory, which means you can import like this:
 
 ```js
 import Navbar from 'src/components/Navbar.svelte';
@@ -115,5 +115,3 @@ If you wish to add additional aliases, you only need to edit the `paths` propert
 	"src": ["src"]
 }
 ```
-
-Note that you *do not* need to add the alias to your Webpack configuration. It will be applied automatically from your tsconfig file.
