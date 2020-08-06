@@ -20,7 +20,6 @@
 		"postcss-loader": "^3.0.0",
 		"sass": "^1.26.10",
 		"sass-loader": "^9.0.3",
-		"serve": "^11.3.2",
 		"svelte": "^3.24.1",
 		"svelte-check": "^1.0.8",
 		"svelte-loader-hot": "^0.3.0",
@@ -31,7 +30,9 @@
 		"webpack-cli": "^3.3.12",
 		"webpack-dev-server": "^3.11.0"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"serve": "^11.3.2"
+	},
 	"browserslist": [
 		"defaults"
 	]
