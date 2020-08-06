@@ -44,6 +44,11 @@ module.exports = {
 						dev: !prod,
 						emitCss: prod,
 						hotReload: !prod,
+						hotOptions: {
+							// List of options and defaults: https://www.npmjs.com/package/svelte-loader-hot#usage
+							noPreserveState: false,
+							optimistic: true
+						},
 						preprocess: Preprocess({
 							scss: true,
 							postcss: {
