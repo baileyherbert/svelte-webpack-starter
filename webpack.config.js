@@ -106,21 +106,16 @@ module.exports = {
 	devtool: (prod && !sourceMapsInProduction) ? false: 'source-map'
 };
 
-// Load path mapping from the tsconfig.json file
-const tsconfig = require(path.resolve(__dirname, 'tsconfig.json'));
+// Load path mapping from tsconfig
+const tsconfigPath = path.resolve(__dirname, 'tsconfig.json');
+const tsconfig = require('fs').existsSync(tsconfigPath) ? require(tsconfigPath) : {};
 if ('compilerOptions' in tsconfig && 'paths' in tsconfig.compilerOptions) {
 	const aliases = tsconfig.compilerOptions.paths;
 	for (const alias in aliases) {
-		let paths = aliases[alias].map(p => path.resolve(__dirname, p));
+		const paths = aliases[alias].map(p => path.resolve(__dirname, p));
 
-		if (paths.length === 1) {
-			paths = paths[0];
-		}
-
-		for (const p of paths) {
-			if (!(alias in module.exports.resolve.alias)) {
-				module.exports.resolve.alias[alias] = paths;
-			}
+		if (!(alias in module.exports.resolve.alias) && paths.length) {
+			module.exports.resolve.alias[alias] = paths.length > 1 ? paths : paths[0];
 		}
 	}
 }
