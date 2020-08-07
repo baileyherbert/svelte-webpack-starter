@@ -1,11 +1,17 @@
 {
-	"extends": "@tsconfig/svelte/tsconfig.json",
 	"include": ["src/**/*"],
 	"exclude": ["node_modules/*", "__sapper__/*", "public/*"],
 	"compilerOptions": {
-		"sourceMap": true,
-		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"target": "es2017",
 		"importsNotUsedAsValues": "remove",
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"sourceMap": true,
+		"baseUrl": ".",
+		"paths": {
+			"src": ["src"]
+		},
 		"types": [
 			"svelte",
 			"svelte/store",
@@ -13,10 +19,6 @@
 			"svelte/transition",
 			"svelte/animate",
 			"svelte/easing"
-		],
-		"baseUrl": ".",
-		"paths": {
-			"src": ["src"]
-		}
+		]
 	}
 }

@@ -9,7 +9,6 @@
 	"devDependencies": {
 		"@babel/core": "^7.11.1",
 		"@babel/preset-env": "^7.11.0",
-		"@tsconfig/svelte": "^1.0.0",
 		"autoprefixer": "^9.8.6",
 		"babel-loader": "^8.1.0",
 		"clean-webpack-plugin": "^3.0.0",
