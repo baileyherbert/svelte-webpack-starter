@@ -6,17 +6,42 @@ const Preprocess = require('svelte-preprocess');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
-
-const sourceMapsInProduction = false;
-const useBabel = true;
-
 const path = require('path');
 const sveltePath = path.resolve('node_modules', 'svelte');
+
+
+/**
+ * Should source maps be generated alongside your production bundle? This will expose your raw source
+ * code, so it's disabled by default.
+ */
+const sourceMapsInProduction = false;
+
+/**
+ * Should we run Babel on builds? This will transpile your bundle in order to work on your target browsers (see the
+ * `browserslist` property in your package.json), but will impact bundle size and build speed.
+ */
+const useBabel = true;
+
+/**
+ * Should we run Babel on development builds? If set to `false`, only production builds will be transpiled. If you're
+ * only testing in modern browsers and don't need transpiling in development, it is recommended to keep this disabled
+ * as it will greatly speed up your builds.
+ */
+const useBabelInDevelopment = false;
+
+/**
+ * One or more stylesheets to compile and add to the beginning of the bundle. By default, both SCSS and CSS files are
+ * supported. The order of this array is important, as the order of outputted styles will match. Svelte component
+ * styles will always appear last in the bundle.
+ */
+const stylesheets = [
+	'./src/styles/index.scss'
+];
+
 
 module.exports = {
 	entry: {
 		bundle: [
-			'./src/styles/index.scss',
 			'./src/main.ts'
 		]
 	},
@@ -106,6 +131,18 @@ module.exports = {
 	devtool: (prod && !sourceMapsInProduction) ? false: 'source-map'
 };
 
+// Add stylesheets to the build
+if (Array.isArray(stylesheets) || typeof stylesheets === 'string') {
+	if (!Array.isArray(stylesheets)) {
+		stylesheets = [stylesheets];
+	}
+
+	module.exports.entry.bundle.unshift.apply(
+		module.exports.entry.bundle,
+		stylesheets
+	);
+}
+
 // Load path mapping from tsconfig
 const tsconfigPath = path.resolve(__dirname, 'tsconfig.json');
 const tsconfig = require('fs').existsSync(tsconfigPath) ? require(tsconfigPath) : {};
@@ -125,34 +162,6 @@ if (prod) {
 	// Clean the build directory for production builds
 	module.exports.plugins.push(new CleanWebpackPlugin());
 
-	// Use babel in production builds
-	if (useBabel) {
-		module.exports.module.rules.unshift({
-			test: /\.(?:svelte|m?js)$/,
-
-			// Svelte internals, under node_modules MUST be included.
-			//
-			// Babel 7 ignores node_modules automatically, but not if they're
-			// explicitely included.
-			// see: https://github.com/babel/babel-loader/issues/171#issuecomment-486380160
-			//
-			include: [
-				path.resolve(__dirname, 'src'),
-				path.dirname(sveltePath)
-			],
-			use: {
-				loader: 'babel-loader',
-				options: {
-					presets: [
-						[
-							'@babel/preset-env'
-						],
-					],
-				},
-			},
-		});
-	}
-
 	// Minify CSS
 	module.exports.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({
 		cssProcessorOptions: {
@@ -169,3 +178,30 @@ if (prod) {
 	}));
 }
 
+// Add babel if enabled
+if (useBabel && (prod || useBabelInDevelopment)) {
+	module.exports.module.rules.unshift({
+		test: /\.(?:svelte|m?js)$/,
+
+		// Svelte internals, under node_modules MUST be included.
+		//
+		// Babel 7 ignores node_modules automatically, but not if they're
+		// explicitely included.
+		// see: https://github.com/babel/babel-loader/issues/171#issuecomment-486380160
+		//
+		include: [
+			path.resolve(__dirname, 'src'),
+			path.dirname(sveltePath)
+		],
+		use: {
+			loader: 'babel-loader',
+			options: {
+				presets: [
+					[
+						'@babel/preset-env'
+					],
+				],
+			},
+		},
+	});
+}

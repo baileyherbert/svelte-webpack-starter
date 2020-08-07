@@ -54,7 +54,7 @@ The `build` script will compile the app for production. By default, the bundle w
 npm run build
 ```
 
-To run the production build, use the `start` command and open [http://localhost:8080](http://localhost:8080) in your browser. You can change the port by modifying the command in your package.json.
+To run the production build, use the `start` command and open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ```bash
 npm run start
@@ -63,29 +63,35 @@ npm run start
 ## Usage
 
 ### Global styles
-There's no `global.css` file in this template. Instead, the `/src/styles/index.scss` file will be compiled and embedded at the top of the bundled CSS, effectively making it a global stylesheet.
+The `/src/styles/index.scss` file will be compiled and embedded at the top of the bundled CSS, effectively making it a global stylesheet. You can easily add additional stylesheets to the bundle by editing the `stylesheets` variable at the top of `webpack.config.js`:
 
-> 💡  You can edit `webpack.config.js` to change this path or remove the file from the bundle.
+```js
+const stylesheets = [
+    './src/styles/index.scss'
+];
+```
 
 ### Single page applications
 If you're building a single page application (which needs multiple routes), edit the `"dev"` command in your package.json and add the `--history-api-fallback` flag.
 
-```js
-"dev": "webpack-dev-server [...] --history-api-fallback"
-```
-
-### Targeting browsers
-This template will use [Babel](https://babeljs.io/docs/en/) and [Autoprefixer](https://www.npmjs.com/package/autoprefixer) to make the bundles work in your target browsers, which are listed under `browserslist` in your package.json file. Check out the list of [browserslist queries](https://github.com/browserslist/browserslist#full-list) to customize this.
-
 ```json
-{
-	"browserslist": [
-		"defaults"
-	]
+"scripts": {
+    "dev": "webpack-dev-server [...] --history-api-fallback"
 }
 ```
 
-Note that Babel is only active for production builds, so it won't slow down your development.
+### Targeting browsers
+[Babel](https://babeljs.io/docs/en/) and [Autoprefixer](https://www.npmjs.com/package/autoprefixer) will be used to make bundles work in your target browsers, which are listed under `browserslist` in your package.json file. Check out the list of [browserslist queries](https://github.com/browserslist/browserslist#full-list) to customize this.
+
+```json
+{
+    "browserslist": [
+        "defaults"
+    ]
+}
+```
+
+Note that Babel is only active for production builds by default, so it won't slow down your development.
 
 ### Disabling Babel
 If you don't need to support older browsers, you can reduce your bundle size by disabling Babel. Just change the `useBabel` variable at the top of `webpack.config.js`:
@@ -112,6 +118,6 @@ If you wish to add additional aliases, you only need to edit the `paths` propert
 
 ```json
 "paths": {
-	"src": ["src"]
+    "src": ["src"]
 }
 ```
