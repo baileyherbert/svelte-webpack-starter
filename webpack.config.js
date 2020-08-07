@@ -197,7 +197,8 @@ if (prod) {
 
     // Minify and treeshake JS
     module.exports.optimization.minimizer.push(new TerserPlugin({
-        sourceMap: sourceMapsInProduction
+        sourceMap: sourceMapsInProduction,
+        extractComments: false
     }));
 }
 
