@@ -85,7 +85,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.s?css$/,
+                test: /\.scss$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -95,7 +95,6 @@ module.exports = {
                         }
                     },
                     'css-loader',
-                    'sass-loader',
                     {
                         loader: 'postcss-loader',
                         options: {
@@ -103,7 +102,21 @@ module.exports = {
                                 require('autoprefixer')
                             ]
                         }
-                    }
+                    },
+                    'sass-loader',
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            hmr: !prod,
+                            sourceMap: !prod || sourceMapsInProduction
+                        }
+                    },
+                    'css-loader'
                 ]
             },
             {
