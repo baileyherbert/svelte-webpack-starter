@@ -183,6 +183,16 @@ if (prod) {
                 annotation: true
             } : false,
         },
+        cssProcessorPluginOptions: {
+            preset: [
+                'default',
+                {
+                    discardComments: {
+                        removeAll: !sourceMapsInProduction
+                    },
+                }
+            ]
+        }
     }));
 
     // Minify and treeshake JS
