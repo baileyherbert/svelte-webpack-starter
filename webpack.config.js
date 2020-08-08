@@ -30,7 +30,7 @@ const useBabel = true;
 const useBabelInDevelopment = false;
 
 /**
- * One or more stylesheets to compile and add to the beginning of the bundle. By default, both SCSS and CSS files are
+ * One or more stylesheets to compile and add to the beginning of the bundle. By default, SASS, SCSS and CSS files are
  * supported. The order of this array is important, as the order of outputted styles will match. Svelte component
  * styles will always appear last in the bundle.
  */
@@ -87,7 +87,7 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
+                test: /\.(scss|sass)$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
