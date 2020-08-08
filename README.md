@@ -72,7 +72,10 @@ const stylesheets = [
 ```
 
 ### Single page applications
-If you're building a single page application (which needs multiple routes), edit your package.json file. Add the `--history-api-fallback` flag flag to the `"dev"` command, and add the `---single` flag to the `"start"` command.
+If you're building a single page application (which needs multiple routes), edit your package.json file:
+
+- Add the `--history-api-fallback` flag to the `"dev"` command
+- Add the `--single` flag to the `"start"` command.
 
 ```json
 "scripts": {
