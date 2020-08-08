@@ -208,13 +208,6 @@ if (prod) {
 if (useBabel && (prod || useBabelInDevelopment)) {
     module.exports.module.rules.unshift({
         test: /\.(?:svelte|m?js)$/,
-
-        // Svelte internals, under node_modules MUST be included.
-        //
-        // Babel 7 ignores node_modules automatically, but not if they're
-        // explicitely included.
-        // see: https://github.com/babel/babel-loader/issues/171#issuecomment-486380160
-        //
         include: [
             path.resolve(__dirname, 'src'),
             path.dirname(sveltePath),
@@ -222,7 +215,9 @@ if (useBabel && (prod || useBabelInDevelopment)) {
         use: {
             loader: 'babel-loader',
             options: {
+                sourceType: 'unambiguous',
                 presets: ['@babel/preset-env'],
+                plugins: ['@babel/plugin-transform-runtime']
             },
         },
     });
