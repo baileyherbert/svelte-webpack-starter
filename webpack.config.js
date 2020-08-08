@@ -42,11 +42,13 @@ const stylesheets = [
 module.exports = {
     entry: {
         bundle: [
+            // Note: Paths in the `stylesheets` variable will be added here automatically
             './src/main.ts'
         ]
     },
     resolve: {
         alias: {
+            // Note: Additional aliases will be loaded automatically from `tsconfig.compilerOptions.paths`
             svelte: path.resolve('node_modules', 'svelte')
         },
         extensions: ['.mjs', '.js', '.ts', '.svelte'],
@@ -56,7 +58,7 @@ module.exports = {
         publicPath: '/build/',
         path: __dirname + '/public/build',
         filename: '[name].js',
-        chunkFilename: '[name].[id].js'
+        chunkFilename: '[name].[id].js',
     },
     module: {
         rules: [
@@ -71,7 +73,7 @@ module.exports = {
                         hotOptions: {
                             // List of options and defaults: https://www.npmjs.com/package/svelte-loader-hot#usage
                             noPreserveState: false,
-                            optimistic: true
+                            optimistic: true,
                         },
                         preprocess: Preprocess({
                             scss: true,
@@ -79,8 +81,8 @@ module.exports = {
                                 plugins: [
                                     require('autoprefixer')
                                 ]
-                            }
-                        })
+                            },
+                        }),
                     }
                 }
             },
@@ -116,30 +118,30 @@ module.exports = {
                             sourceMap: !prod || sourceMapsInProduction
                         }
                     },
-                    'css-loader'
+                    'css-loader',
                 ]
             },
             {
                 test: /\.ts$/,
                 use: 'ts-loader',
-                exclude: /node_modules/
-            }
+                exclude: /node_modules/,
+            },
         ]
     },
     devServer: {
         hot: true,
         stats: 'minimal',
         contentBase: 'public',
-        watchContentBase: true
+        watchContentBase: true,
     },
     mode,
     plugins: [
         new MiniCssExtractPlugin({
             filename: '[name].css'
-        })
+        }),
     ],
     optimization: {
-        minimizer: []
+        minimizer: [],
     },
     devtool: (prod && !sourceMapsInProduction) ? false: 'source-map'
 };
@@ -180,7 +182,7 @@ if (prod) {
         cssProcessorOptions: {
             map: sourceMapsInProduction ? {
                 inline: false,
-                annotation: true
+                annotation: true,
             } : false,
         },
         cssProcessorPluginOptions: {
@@ -188,17 +190,17 @@ if (prod) {
                 'default',
                 {
                     discardComments: {
-                        removeAll: !sourceMapsInProduction
+                        removeAll: !sourceMapsInProduction,
                     },
                 }
             ]
-        }
+        },
     }));
 
     // Minify and treeshake JS
     module.exports.optimization.minimizer.push(new TerserPlugin({
         sourceMap: sourceMapsInProduction,
-        extractComments: false
+        extractComments: false,
     }));
 }
 
@@ -215,16 +217,12 @@ if (useBabel && (prod || useBabelInDevelopment)) {
         //
         include: [
             path.resolve(__dirname, 'src'),
-            path.dirname(sveltePath)
+            path.dirname(sveltePath),
         ],
         use: {
             loader: 'babel-loader',
             options: {
-                presets: [
-                    [
-                        '@babel/preset-env'
-                    ],
-                ],
+                presets: ['@babel/preset-env'],
             },
         },
     });
