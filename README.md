@@ -1,12 +1,5 @@
 # Svelte Webpack Starter
-This is my personal starter template for creating [Svelte](https://svelte.dev) apps. It's preconfigured out of the box with:
-
-- Webpack
-- Hot module replacement
-- TypeScript
-- SASS
-- Babel
-- Autoprefixer
+This is my personal starter template for creating [Svelte](https://svelte.dev) apps. It's preconfigured out of the box with Webpack, TypeScript, SASS, Babel, Autoprefixer, and hot module replacement. I've kept it minimal and organized so it's easy to build upon and/or customize.
 
 ---
 
