@@ -147,18 +147,21 @@ if (Array.isArray(stylesheets) || typeof stylesheets === 'string') {
 		stylesheets = [stylesheets];
 	}
 
-	// Explicitly type bundle as string[]
-	type Replace<T, K> = Omit<T, keyof K> & K;
-	config.entry = config.entry as Replace<
-		typeof config.entry,
-		{
-			bundle: string[];
+	// Make sure our entry bundle is in the correct format
+	if (typeof config.entry === 'object' && !Array.isArray(config.entry)) {
+		if (typeof config.entry.bundle !== 'undefined') {
+			// Convert the bundle to an array if necessary
+			if (!Array.isArray(config.entry.bundle)) {
+				config.entry.bundle = [config.entry.bundle];
+			}
+
+			// Add to the beginning of the bundle using unshift
+			config.entry.bundle.unshift.apply(
+				config.entry.bundle,
+				stylesheets
+			);
 		}
-	>;
-	(config.entry.bundle as string[]).unshift.apply(
-		config.entry.bundle,
-		stylesheets
-	);
+	}
 }
 
 // Load path mapping from tsconfig
