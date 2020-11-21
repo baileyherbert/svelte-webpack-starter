@@ -3,17 +3,18 @@ This is my personal starter template for creating [Svelte](https://svelte.dev) a
 
 ---
 
-- [Getting started](#getting-started)
-	- [Installation](#installation)
-	- [Starting the development server](#starting-the-development-server)
-	- [Building for production](#building-for-production)
-- [Usage](#usage)
-	- [Global styles](#global-styles)
-	- [Single page applications](#single-page-applications)
-	- [Targeting browsers](#targeting-browsers)
-	- [Disabling Babel](#disabling-babel)
-	- [Enabling source maps in production](#enabling-source-maps-in-production)
-	- [Path mapping](#path-mapping)
+- [Svelte Webpack Starter](#svelte-webpack-starter)
+	- [Getting started](#getting-started)
+		- [Installation](#installation)
+		- [Starting the development server](#starting-the-development-server)
+		- [Building for production](#building-for-production)
+	- [Usage](#usage)
+		- [Global styles](#global-styles)
+		- [Single page applications](#single-page-applications)
+		- [Targeting browsers](#targeting-browsers)
+		- [Disabling Babel](#disabling-babel)
+		- [Enabling source maps in production](#enabling-source-maps-in-production)
+		- [Path aliases](#path-aliases)
 
 ---
 
@@ -104,17 +105,21 @@ By default, this template won't generate source maps for production bundles in o
 const sourceMapsInProduction = true;
 ```
 
-### Path mapping
-By default, the `src` alias is mapped to your `src/` directory, which means you can import like this:
-
-```js
-import Navbar from 'src/components/Navbar.svelte';
-```
-
-If you wish to add additional aliases, you only need to edit the `paths` property in your `tsconfig.json`, and they will be automatically applied to Webpack:
+### Path aliases
+Path aliases are automatically applied to webpack from the `tsconfig.json` file. This helps shorten the import paths for directories that you commonly import from. For example:
 
 ```json
 "paths": {
-    "src": ["src"]
+	"stores/*": ["src/some/path/to/stores/*"]
 }
+```
+
+```js
+import { users } from 'stores/users';
+```
+
+The root directory is configured as a base path for imports. This means you can also import modules with an absolute path from anywhere in the project.
+
+```js
+import { users } from 'src/some/path/to/stores/users';
 ```
