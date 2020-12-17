@@ -3,18 +3,17 @@ This is my personal starter template for creating [Svelte](https://svelte.dev) a
 
 ---
 
-- [Svelte Webpack Starter](#svelte-webpack-starter)
-	- [Getting started](#getting-started)
-		- [Installation](#installation)
-		- [Starting the development server](#starting-the-development-server)
-		- [Building for production](#building-for-production)
-	- [Usage](#usage)
-		- [Global styles](#global-styles)
-		- [Single page applications](#single-page-applications)
-		- [Targeting browsers](#targeting-browsers)
-		- [Disabling Babel](#disabling-babel)
-		- [Enabling source maps in production](#enabling-source-maps-in-production)
-		- [Path aliases](#path-aliases)
+- [Getting started](#getting-started)
+	- [Installation](#installation)
+	- [Starting the development server](#starting-the-development-server)
+	- [Building for production](#building-for-production)
+- [Usage](#usage)
+	- [Global styles](#global-styles)
+	- [Single page applications](#single-page-applications)
+	- [Targeting browsers](#targeting-browsers)
+	- [Disabling Babel](#disabling-babel)
+	- [Enabling source maps in production](#enabling-source-maps-in-production)
+	- [Path aliases](#path-aliases)
 
 ---
 
