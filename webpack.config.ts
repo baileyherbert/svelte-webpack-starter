@@ -37,6 +37,7 @@ const useBabelInDevelopment = false;
  */
 let stylesheets = ['./src/styles/index.scss'];
 
+
 const config: webpack.Configuration & WebpackDevServer.Configuration = {
 	entry: {
 		bundle: [
@@ -168,21 +169,22 @@ const tsconfigPath = path.resolve(__dirname, 'tsconfig.json');
 const tsconfig = require('fs').existsSync(tsconfigPath) ? require(tsconfigPath) : {};
 
 if ('compilerOptions' in tsconfig && 'paths' in tsconfig.compilerOptions) {
-    const aliases = tsconfig.compilerOptions.paths;
-    for (const alias in aliases) {
-        const paths = aliases[alias].map((p: string) => path.resolve(__dirname, p));
+	const aliases = tsconfig.compilerOptions.paths;
 
-        // Our tsconfig uses glob path formats, whereas webpack just wants directories
-        // We'll need to transform the glob format into a format acceptable to webpack
-        const wpAlias = alias.replace(/(\\|\/)\*$/, '');
-        const wpPaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''));
+	for (const alias in aliases) {
+		const paths = aliases[alias].map((p: string) => path.resolve(__dirname, p));
+
+		// Our tsconfig uses glob path formats, whereas webpack just wants directories
+		// We'll need to transform the glob format into a format acceptable to webpack
+		const wpAlias = alias.replace(/(\\|\/)\*$/, '');
+		const wpPaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''));
 
 		if (config.resolve && config.resolve.alias) {
 			if (!(wpAlias in config.resolve.alias) && wpPaths.length) {
 				config.resolve.alias[wpAlias] = wpPaths.length > 1 ? wpPaths : wpPaths[0];
 			}
 		}
-    }
+	}
 }
 
 // These options should only apply to production builds
