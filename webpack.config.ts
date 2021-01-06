@@ -7,8 +7,7 @@ import Preprocess from 'svelte-preprocess';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 
-const mode =
-	(process.env.NODE_ENV as 'production' | 'development') || 'development';
+const mode = process.env.NODE_ENV ?? 'development';
 const prod = mode === 'production';
 const sveltePath = path.resolve('node_modules', 'svelte');
 
@@ -129,7 +128,7 @@ const config: webpack.Configuration & WebpackDevServer.Configuration = {
 		contentBase: 'public',
 		watchContentBase: true,
 	},
-	mode,
+	mode: (mode === 'production' ? 'production' : 'development'),
 	plugins: [
 		new MiniCssExtractPlugin({
 			filename: '[name].css',
@@ -178,19 +177,21 @@ if ('compilerOptions' in tsconfig && 'paths' in tsconfig.compilerOptions) {
         const wpAlias = alias.replace(/(\\|\/)\*$/, '');
         const wpPaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''));
 
-        if (!(wpAlias in config.resolve.alias) && wpPaths.length) {
-            config.resolve.alias[wpAlias] = wpPaths.length > 1 ? wpPaths : wpPaths[0];
-        }
+		if (config.resolve && config.resolve.alias) {
+			if (!(wpAlias in config.resolve.alias) && wpPaths.length) {
+				config.resolve.alias[wpAlias] = wpPaths.length > 1 ? wpPaths : wpPaths[0];
+			}
+		}
     }
 }
 
 // These options should only apply to production builds
 if (prod) {
 	// Clean the build directory for production builds
-	config.plugins.push(new CleanWebpackPlugin());
+	config.plugins?.push(new CleanWebpackPlugin());
 
 	// Minify CSS
-	config.optimization.minimizer.push(
+	config.optimization?.minimizer?.push(
 		new OptimizeCSSAssetsPlugin({
 			cssProcessorOptions: {
 				map: sourceMapsInProduction
@@ -214,7 +215,7 @@ if (prod) {
 	);
 
 	// Minify and treeshake JS
-	config.optimization.minimizer.push(
+	config.optimization?.minimizer?.push(
 		new TerserPlugin({
 			sourceMap: sourceMapsInProduction,
 			extractComments: false,
@@ -224,7 +225,7 @@ if (prod) {
 
 // Add babel if enabled
 if (useBabel && (prod || useBabelInDevelopment)) {
-	config.module.rules.unshift({
+	config.module?.rules.unshift({
 		test: /\.(?:svelte|m?js)$/,
 		include: [path.resolve(__dirname, 'src'), path.dirname(sveltePath)],
 		use: {
