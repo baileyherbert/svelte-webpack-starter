@@ -10,7 +10,9 @@
 		"sourceMap": true,
 		"strict": false,
 		"baseUrl": ".",
-		"paths": {},
+		"paths": {
+			"src/*": ["src/*"]
+		},
 		"types": [
 			"svelte",
 			"svelte/store",
