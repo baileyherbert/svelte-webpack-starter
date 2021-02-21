@@ -14,7 +14,7 @@ Babel, Autoprefixer, and HMR.
 	- [Global stylesheets](#global-stylesheets)
 	- [Single page applications](#single-page-applications)
 	- [Browsers list](#browsers-list)
-	- [Babel](#babel)
+	- [Babel customization](#babel-customization)
 	- [Source maps in production](#source-maps-in-production)
 	- [Import path aliases](#import-path-aliases)
 
@@ -118,7 +118,7 @@ The default value is recommended. If you wish to customize this, please refer to
 > 💡 **Note:** This template includes `core-js` and `regenerator-runtime` which means your source code will be
 > transpiled and polyfilled to run on old browsers automatically.
 
-### Babel
+### Babel customization
 
 Production builds are compiled with Babel automatically. If you wish to disable it, edit the `webpack.config.ts` file:
 
@@ -147,20 +147,20 @@ Define import path aliases from the `tsconfig.json` file. For example:
 
 ```json
 "paths": {
-    "@stores/*": ["src/some/path/to/stores/*"]
+    "@stores/*": ["src/stores/*"]
 }
 ```
 
-You can then import files under these aliases and Webpack will resolve them:
+You can then import files under these aliases and Webpack will resolve them. Your code editor should also use them
+for automatic imports:
 
 ```ts
-import { users } from '@stores/users';
-// Imports src/some/path/to/stores/users.ts
+import { users } from '@stores/users'; // src/stores/users.ts
 ```
 
 The root directory is configured as a base path for imports. This means you can also import modules with an absolute
 path from anywhere in the project instead of using a large number of `..` to traverse directories.
 
 ```ts
-import { users } from 'src/some/path/to/stores/users';
+import { users } from 'src/stores/users';
 ```
