@@ -1,124 +1,166 @@
 # Svelte Webpack Starter
-This is my personal starter template for creating [Svelte](https://svelte.dev) apps. It's preconfigured out of the box with Webpack, TypeScript, SASS, Babel, Autoprefixer, and hot module replacement. I've kept it minimal and organized so it's easy to build upon and/or customize.
+
+This is a starter template for [Svelte](https://svelte.dev) that comes preconfigured with Webpack, TypeScript, SASS,
+Babel, Autoprefixer, and HMR.
 
 ---
 
 - [Getting started](#getting-started)
-	- [Installation](#installation)
+	- [Setup](#setup)
 	- [Starting the development server](#starting-the-development-server)
 	- [Building for production](#building-for-production)
+	- [Running in production](#running-in-production)
 - [Usage](#usage)
-	- [Global styles](#global-styles)
+	- [Global stylesheets](#global-stylesheets)
 	- [Single page applications](#single-page-applications)
-	- [Targeting browsers](#targeting-browsers)
-	- [Disabling Babel](#disabling-babel)
-	- [Enabling source maps in production](#enabling-source-maps-in-production)
-	- [Path aliases](#path-aliases)
+	- [Browsers list](#browsers-list)
+	- [Babel](#babel)
+	- [Source maps in production](#source-maps-in-production)
+	- [Import path aliases](#import-path-aliases)
 
 ---
 
 ## Getting started
 
-### Installation
-To quickly get started with this template, use [degit](https://github.com/Rich-Harris/degit):
+### Setup
+
+Pull the template files with [`degit`](https://github.com/Rich-Harris/degit) and then install dependencies:
 
 ```bash
-npx degit baileyherbert/svelte-webpack-starter svelte-app
-cd svelte-app
-```
-
-Then, install dependencies.
-
-```bash
+npx degit baileyherbert/svelte-webpack-starter#webpack-5
 npm install
 ```
 
 ### Starting the development server
-The `dev` script will compile the app, start the development server, and enable hot replacement for components and styles. Open [http://localhost:8080](http://localhost:8080) in your browser to see the app.
+
+Run the `dev` script to start a live development server with hot module replacement. Then check the output for a link
+to the app, which is usually `http://localhost:8080/`:
 
 ```bash
 npm run dev
 ```
 
 ### Building for production
-The `build` script will compile the app for production. By default, the bundle will be created at `/public/build/`, which means your public directory will contain everything you need to run the app.
+
+Run the `build` script to bundle the app for production. The bundle will be created at `/public/build/` and the `public`
+directory will contain all files you need to host the app:
 
 ```bash
 npm run build
 ```
 
-To run the production build, use the `start` command and open [http://localhost:8080](http://localhost:8080) in your browser.
+> 💡 **Tip:** You can quickly test the production build by running `npm start`.
+
+### Running in production
+
+First upload the following files and folders to your target server:
+
+- `package.json`
+- `package-lock.json`
+- `public`
+
+Then install dependencies:
 
 ```bash
-npm run start
+npm install --production
+```
+
+Finally run the `start` command to launch the included web server:
+
+```bash
+npm start
 ```
 
 ## Usage
 
-### Global styles
-The `/src/styles/index.scss` file will be compiled and embedded at the top of the bundled CSS, effectively making it a global stylesheet. You can easily add additional stylesheets to the bundle by editing the `stylesheets` variable at the top of `webpack.config.js`:
+### Global stylesheets
 
-```js
+Add one or more global stylesheets to the bundle by editing the `stylesheets` variable at the top of
+`webpack.config.ts`:
+
+```ts
 const stylesheets = [
     './src/styles/index.scss'
 ];
 ```
 
+You can specify `css`, `scss`, and `sass` files here, and they will be compiled and minified as necessary. These styles
+will be added to the beginning of the bundle in the order specified. Svelte's styles will always appear last.
+
 ### Single page applications
-If you're building a single page application (which needs multiple routes), edit your package.json file:
+
+For single page applications that use history routing instead of hash routing, edit the `package.json` file to serve
+the `index.html` file when a requested file is not found:
 
 - Add the `--history-api-fallback` flag to the `"dev"` command
 - Add the `--single` flag to the `"start"` command.
 
 ```json
 "scripts": {
-    "dev": "webpack-dev-server [...] --history-api-fallback",
-    "start": "serve [...] --single",
+    "dev": "webpack serve --history-api-fallback",
+    "start": "serve public --listen 8080 --single",
 }
 ```
 
-### Targeting browsers
-[Babel](https://babeljs.io/docs/en/) and [Autoprefixer](https://www.npmjs.com/package/autoprefixer) will be used to make bundles work in your target browsers, which are listed under `browserslist` in your package.json file. Check out the list of [browserslist queries](https://github.com/browserslist/browserslist#full-list) to customize this.
+### Browsers list
+
+The bundle will be compiled to run on the browsers specified in `package.json`:
 
 ```json
-{
-    "browserslist": [
-        "defaults"
-    ]
-}
+"browserslist": [
+	"defaults"
+]
 ```
 
-Note that Babel is only active for production builds by default, so it won't slow down your development.
+The default value is recommended. If you wish to customize this, please refer to the list of
+[example browserslist queries](https://github.com/browserslist/browserslist#full-list).
 
-### Disabling Babel
-If you don't need to support older browsers, you can reduce your bundle size by disabling Babel. Just change the `useBabel` variable at the top of `webpack.config.js`:
+> 💡 **Note:** This template includes `core-js` and `regenerator-runtime` which means your source code will be
+> transpiled and polyfilled to run on old browsers automatically.
 
-```js
+### Babel
+
+Production builds are compiled with Babel automatically. If you wish to disable it, edit the `webpack.config.ts` file:
+
+```ts
 const useBabel = false;
 ```
 
-### Enabling source maps in production
-By default, this template won't generate source maps for production bundles in order to avoid exposing your source code. If you need to enable source maps in production (such as for debugging), update the `sourceMapsInProduction` variable at the top of `webpack.config.js`.
+Babel is disabled during development in order to improve build speeds. Please enable it manually if you need:
 
-```js
+```ts
+const useBabelInDevelopment = true;
+```
+
+### Source maps in production
+
+Source maps are generated automatically during development. They are not included in production builds by default. If
+you wish to change this behavior, edit the `webpack.config.ts` file:
+
+```ts
 const sourceMapsInProduction = true;
 ```
 
-### Path aliases
-Path aliases are automatically applied to webpack from the `tsconfig.json` file. This helps shorten the import paths for directories that you commonly import from. For example:
+### Import path aliases
+
+Define import path aliases from the `tsconfig.json` file. For example:
 
 ```json
 "paths": {
-	"stores/*": ["src/some/path/to/stores/*"]
+	"@stores/*": ["src/some/path/to/stores/*"]
 }
 ```
 
-```js
-import { users } from 'stores/users';
+You can then import files under these aliases and Webpack will resolve them:
+
+```ts
+import { users } from '@stores/users';
+// Imports src/some/path/to/stores/users.ts
 ```
 
-The root directory is configured as a base path for imports. This means you can also import modules with an absolute path from anywhere in the project.
+The root directory is configured as a base path for imports. This means you can also import modules with an absolute
+path from anywhere in the project instead of using a large number of `..` to traverse directories.
 
-```js
+```ts
 import { users } from 'src/some/path/to/stores/users';
 ```
