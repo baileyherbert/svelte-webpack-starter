@@ -3,8 +3,6 @@
 A starter template for [Svelte](https://svelte.dev) that comes preconfigured with Webpack, TypeScript, SASS, Babel,
 Autoprefixer, and HMR.
 
----
-
 - [Getting started](#getting-started)
 	- [Installation](#installation)
 	- [Starting the development server](#starting-the-development-server)
@@ -31,7 +29,7 @@ npx degit baileyherbert/svelte-webpack-starter
 npm install
 ```
 
-> 💡 **Note:** This template now uses Webpack 5. Users who still want to work with Webpack 4 should run
+> 💡 **Note:** This template has been updated to use Webpack 5. Developers who still need Webpack 4 should run
 > `npx degit baileyherbert/svelte-webpack-starter#4` instead.
 
 ### Starting the development server
@@ -73,6 +71,8 @@ Finally run the `start` command to launch the included web server:
 ```bash
 npm start
 ```
+
+---
 
 ## Usage
 
