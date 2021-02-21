@@ -227,18 +227,50 @@ if (prod) {
 
 // Add babel if enabled
 if (useBabel && (prod || useBabelInDevelopment)) {
+	const babelLoader = {
+		loader: 'babel-loader',
+		options: {
+			sourceType: 'unambiguous',
+			presets: [
+				[
+					// Docs: https://babeljs.io/docs/en/babel-preset-env
+					'@babel/preset-env',
+					{
+						debug: false,
+						corejs: { version: 3 },
+						useBuiltIns: 'usage'
+					}
+				]
+			],
+			plugins: ['@babel/plugin-transform-runtime']
+		}
+	};
+
 	config.module?.rules.unshift({
-		test: /\.(?:svelte|m?js)$/,
+		test: /\.(?:m?js|ts)$/,
 		include: [path.resolve(__dirname, 'src'), path.dirname(sveltePath)],
-		use: {
-			loader: 'babel-loader',
-			options: {
-				sourceType: 'unambiguous',
-				presets: ['@babel/preset-env'],
-				plugins: ['@babel/plugin-transform-runtime'],
-			},
-		},
+		exclude: [/node_modules[/\\](css-loader|core-js|webpack|regenerator-runtime)/],
+		use: babelLoader,
 	});
+
+	const svelte = config.module?.rules.find(rule => {
+		if (Array.isArray(rule.use))
+			return rule.use.includes(e => typeof e.loader === 'string' && e.loader.startsWith('svelte-loader'));
+		else if (typeof rule.use === 'object')
+			return rule.use.loader?.startsWith('svelte-loader') ?? false;
+		return false;
+	});
+
+	if (!svelte) {
+		console.error('ERR: Could not find svelte-loader for babel injection!');
+		process.exit();
+	}
+
+	if (!Array.isArray(svelte.use)) {
+		svelte.use = [svelte.use as any];
+	}
+
+	svelte.use.unshift(babelLoader);
 }
 
 export default config;
