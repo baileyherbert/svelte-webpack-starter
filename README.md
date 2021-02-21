@@ -1,6 +1,6 @@
 # Svelte Webpack Starter
 
-This is a starter template for [Svelte](https://svelte.dev) that comes preconfigured with Webpack, TypeScript, SASS,
+A starter template for [Svelte](https://svelte.dev) that comes preconfigured with Webpack, TypeScript, SASS,
 Babel, Autoprefixer, and HMR.
 
 ---
