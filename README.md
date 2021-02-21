@@ -6,7 +6,7 @@ Babel, Autoprefixer, and HMR.
 ---
 
 - [Getting started](#getting-started)
-	- [Setup](#setup)
+	- [Installation](#installation)
 	- [Starting the development server](#starting-the-development-server)
 	- [Building for production](#building-for-production)
 	- [Running in production](#running-in-production)
@@ -22,7 +22,7 @@ Babel, Autoprefixer, and HMR.
 
 ## Getting started
 
-### Setup
+### Installation
 
 Pull the template files with [`degit`](https://github.com/Rich-Harris/degit) and then install dependencies:
 
@@ -49,7 +49,7 @@ directory will contain all files you need to host the app:
 npm run build
 ```
 
-> 💡 **Tip:** You can quickly test the production build by running `npm start`.
+> 💡 **Tip:** You can quickly test the production build by running `npm start` locally.
 
 ### Running in production
 
@@ -108,7 +108,7 @@ The bundle will be compiled to run on the browsers specified in `package.json`:
 
 ```json
 "browserslist": [
-	"defaults"
+    "defaults"
 ]
 ```
 
@@ -147,7 +147,7 @@ Define import path aliases from the `tsconfig.json` file. For example:
 
 ```json
 "paths": {
-	"@stores/*": ["src/some/path/to/stores/*"]
+    "@stores/*": ["src/some/path/to/stores/*"]
 }
 ```
 
