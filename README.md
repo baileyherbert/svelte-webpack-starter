@@ -1,7 +1,7 @@
 # Svelte Webpack Starter
 
-A starter template for [Svelte](https://svelte.dev) that comes preconfigured with Webpack, TypeScript, SASS,
-Babel, Autoprefixer, and HMR.
+A starter template for [Svelte](https://svelte.dev) that comes preconfigured with Webpack, TypeScript, SASS, Babel,
+Autoprefixer, and HMR.
 
 ---
 
@@ -27,9 +27,12 @@ Babel, Autoprefixer, and HMR.
 Pull the template files with [`degit`](https://github.com/Rich-Harris/degit) and then install dependencies:
 
 ```bash
-npx degit baileyherbert/svelte-webpack-starter#webpack-5
+npx degit baileyherbert/svelte-webpack-starter
 npm install
 ```
+
+> 💡 **Note:** This template now uses Webpack 5. Users who still want to work with Webpack 4 should run
+> `npx degit baileyherbert/svelte-webpack-starter#4` instead.
 
 ### Starting the development server
 
