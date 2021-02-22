@@ -267,7 +267,6 @@ if (useBabel && (isProduction || useBabelInDevelopment)) {
 	config.module?.rules.unshift({
 		test: /\.(?:m?js|ts)$/,
 		include: [
-			path.resolve(__dirname, 'src'), path.resolve('node_modules', 'svelte')
 			path.resolve(__dirname, 'src'),
 			path.resolve('node_modules', 'svelte')
 		],
