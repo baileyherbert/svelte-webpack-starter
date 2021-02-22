@@ -75,6 +75,7 @@ const config: Configuration = {
 			// Rule: Svelte
 			{
 				test: /\.svelte$/,
+				exclude: /node_modules/,
 				use: {
 					loader: 'svelte-loader',
 					options: {
@@ -99,6 +100,15 @@ const config: Configuration = {
 							}
 						})
 					}
+				}
+			},
+
+			// Required to prevent errors from Svelte on Webpack 5+, omit on Webpack 4
+			// See: https://github.com/sveltejs/svelte-loader#usage
+			{
+				test: /node_modules\/svelte\/.*\.mjs$/,
+				resolve: {
+					fullySpecified: false
 				}
 			},
 
@@ -258,6 +268,8 @@ if (useBabel && (isProduction || useBabelInDevelopment)) {
 		test: /\.(?:m?js|ts)$/,
 		include: [
 			path.resolve(__dirname, 'src'), path.resolve('node_modules', 'svelte')
+			path.resolve(__dirname, 'src'),
+			path.resolve('node_modules', 'svelte')
 		],
 		exclude: [
 			/node_modules[/\\](css-loader|core-js|webpack|regenerator-runtime)/
