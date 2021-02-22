@@ -99,7 +99,7 @@ the `index.html` file when a requested file is not found:
 
 ```json
 "scripts": {
-    "dev": "webpack-dev-server --history-api-fallback",
+    "dev": "webpack serve --history-api-fallback",
     "start": "serve public --listen 8080 --single",
 }
 ```
