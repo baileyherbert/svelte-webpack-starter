@@ -16,6 +16,9 @@ Autoprefixer, and HMR.
 	- [Source maps in production](#source-maps-in-production)
 	- [Import path aliases](#import-path-aliases)
 
+> **✨ New!** Check out [`svelte-vite-starter`](https://github.com/baileyherbert/svelte-vite-starter) with the same
+> exact stack and a light-speed development server!
+
 ---
 
 ## Getting started
