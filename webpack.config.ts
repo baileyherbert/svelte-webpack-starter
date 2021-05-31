@@ -37,7 +37,7 @@ import WebpackDev from 'webpack-dev-server';
 import SveltePreprocess from 'svelte-preprocess';
 import Autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import CSSMinimizerPlugin from 'css-minimizer-webpack-plugin';
 
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
@@ -194,17 +194,14 @@ if (isProduction) {
 
 	// Minify CSS files
 	config.optimization?.minimizer?.push(
-		new OptimizeCSSAssetsPlugin({
-			cssProcessorOptions: {
-				map: sourceMapsInProduction ? { inline: false, annotation: true, } : false,
-			},
-			cssProcessorPluginOptions: {
+		new CSSMinimizerPlugin({
+			sourceMap: sourceMapsInProduction ? {inline: false, annotation: true, }: false,
+			parallel: true,
+			minimizerOptions: {
 				preset: [
 					'default',
 					{
-						discardComments: {
-							removeAll: !sourceMapsInProduction,
-						},
+						discardComments: { removeAll: !sourceMapsInProduction },
 					},
 				],
 			},
