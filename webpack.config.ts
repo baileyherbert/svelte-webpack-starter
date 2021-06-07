@@ -155,7 +155,7 @@ const config: Configuration = {
 	},
 	devServer: {
 		hot: true,
-		stats: 'none',
+		stats: 'errors-only',
 		contentBase: 'public',
 		watchContentBase: true
 	},
