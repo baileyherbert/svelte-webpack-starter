@@ -22,5 +22,9 @@
 			"svelte/animate",
 			"svelte/easing"
 		]
+	},
+	// see: https://github.com/webpack/webpack-cli/issues/2458#issuecomment-846635277
+	"ts-node": {
+		"compilerOptions": { "module": "commonjs" }
 	}
 }
