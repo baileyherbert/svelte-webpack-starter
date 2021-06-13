@@ -1,4 +1,5 @@
 {
+	// TSConfig file.
 	"include": ["src/**/*", "webpack.config.ts"],
 	"exclude": ["node_modules/*", "__sapper__/*", "public/*"],
 	"compilerOptions": {
