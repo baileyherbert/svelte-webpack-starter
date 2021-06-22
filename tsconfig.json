@@ -1,10 +1,10 @@
 {
-	// TSConfig file.
 	"include": ["src/**/*", "webpack.config.ts"],
 	"exclude": ["node_modules/*", "__sapper__/*", "public/*"],
 	"compilerOptions": {
 		"moduleResolution": "node",
 		"target": "es2017",
+		"module": "commonjs",
 		"importsNotUsedAsValues": "remove",
 		"isolatedModules": true,
 		"esModuleInterop": true,
@@ -23,8 +23,12 @@
 			"svelte/easing"
 		]
 	},
-	// see: https://github.com/webpack/webpack-cli/issues/2458#issuecomment-846635277
+
+	// Fixes errors when changing `module` to ES in the above compiler options
+	// See: https://github.com/webpack/webpack-cli/issues/2458#issuecomment-846635277
 	"ts-node": {
-		"compilerOptions": { "module": "commonjs" }
+		"compilerOptions": {
+			"module": "commonjs"
+		}
 	}
 }
