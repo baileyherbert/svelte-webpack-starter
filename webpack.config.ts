@@ -216,6 +216,9 @@ if (isProduction) {
 	config.optimization.minimize = true;
 }
 
+// Parse as JSON5 to add support for comments in tsconfig.json parsing.
+require('require-json5').replace();
+
 // Load path aliases from the tsconfig.json file
 const tsconfigPath = path.resolve(__dirname, 'tsconfig.json');
 const tsconfig = fs.existsSync(tsconfigPath) ? require(tsconfigPath) : {};
