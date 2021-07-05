@@ -4,7 +4,6 @@
 	"compilerOptions": {
 		"moduleResolution": "node",
 		"target": "es2017",
-		"module": "commonjs",
 		"importsNotUsedAsValues": "remove",
 		"isolatedModules": true,
 		"esModuleInterop": true,
