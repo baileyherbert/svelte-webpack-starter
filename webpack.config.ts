@@ -195,7 +195,6 @@ if (isProduction) {
 	// Minify CSS files
 	config.optimization?.minimizer?.push(
 		new CSSMinimizerPlugin({
-			sourceMap: sourceMapsInProduction ? {inline: false, annotation: true, }: false,
 			parallel: true,
 			minimizerOptions: {
 				preset: [
