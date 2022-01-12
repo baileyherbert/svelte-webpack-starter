@@ -155,9 +155,6 @@ const config: Configuration = {
 	},
 	devServer: {
 		hot: true,
-		stats: 'errors-only',
-		contentBase: 'public',
-		watchContentBase: true
 	},
 	target: isDevelopment ? 'web' : 'browserslist',
 	plugins: [
