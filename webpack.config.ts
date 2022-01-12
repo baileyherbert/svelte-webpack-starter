@@ -28,6 +28,12 @@ const stylesheets = [
  */
 const sourceMapsInProduction = false;
 
+/**
+ * This option will run svelte-check when the bundle is built, and cause the build to fail when svelte-check
+ * has errors or warnings
+ */
+const svelteCheckOnBuild = true;
+
 /*********************************************************************************************************************/
 /**********                                             Webpack                                             **********/
 /*********************************************************************************************************************/
@@ -38,6 +44,7 @@ import SveltePreprocess from 'svelte-preprocess';
 import Autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CSSMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import SvelteCheckPlugin from 'svelte-check-plugin';
 
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
@@ -160,7 +167,8 @@ const config: Configuration = {
 	plugins: [
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
-		})
+		}),
+		...(svelteCheckOnBuild ? [new SvelteCheckPlugin()] : [])
 	],
 	devtool: isProduction && !sourceMapsInProduction ? false : 'source-map',
 	stats: {
