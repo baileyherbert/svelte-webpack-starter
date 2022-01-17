@@ -29,7 +29,7 @@
 		"sass-loader": "^11.0.1",
 		"svelte": "^3.32.3",
 		"svelte-check": "^1.1.35",
-		"svelte-check-plugin": "^1.0.1",
+		"svelte-check-plugin": "zachmatson/svelte-check-plugin#fix-windows",
 		"svelte-loader": "^3.0.0",
 		"svelte-preprocess": "^4.6.9",
 		"ts-loader": "^8.0.17",
