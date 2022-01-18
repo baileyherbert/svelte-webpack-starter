@@ -32,7 +32,12 @@ const sourceMapsInProduction = false;
  * This option will run svelte-check when the bundle is built, and cause the build to fail when svelte-check
  * has errors or warnings
  */
-const svelteCheckOnBuild = true;
+const svelteCheckOnBuild = false;
+/**
+ * This option will run svelte-check when the bundle is built in production mode only, and cause the build to fail
+ * when svelte-check has errors or warnings
+ */
+const svelteCheckOnBuildInProduction = true;
 
 /*********************************************************************************************************************/
 /**********                                             Webpack                                             **********/
@@ -168,7 +173,7 @@ const config: Configuration = {
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
 		}),
-		...(svelteCheckOnBuild ? [new SvelteCheckPlugin()] : [])
+		...(svelteCheckOnBuild || isProduction && svelteCheckOnBuildInProduction ? [new SvelteCheckPlugin()] : [])
 	],
 	devtool: isProduction && !sourceMapsInProduction ? false : 'source-map',
 	stats: {
