@@ -29,15 +29,16 @@ const stylesheets = [
 const sourceMapsInProduction = false;
 
 /**
- * This option will run svelte-check when the bundle is built, and cause the build to fail when svelte-check
- * has errors or warnings
+ * Change this to `true` to run svelte-check during hot reloads. This will impact build speeds but will show more
+ * thorough errors and warnings.
  */
-const svelteCheckOnBuild = false;
+const svelteCheckInDevelopment = false;
+
 /**
- * This option will run svelte-check when the bundle is built in production mode only, and cause the build to fail
- * when svelte-check has errors or warnings
+ * Change this to `false` to disable svelte-check during production builds. Build speeds will be faster, but error
+ * and warning checks will be less thorough.
  */
-const svelteCheckOnBuildInProduction = true;
+const svelteCheckInProduction = true;
 
 /*********************************************************************************************************************/
 /**********                                             Webpack                                             **********/
@@ -172,7 +173,7 @@ const config: Configuration = {
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
 		}),
-		...(svelteCheckOnBuild || isProduction && svelteCheckOnBuildInProduction ? [new SvelteCheckPlugin()] : [])
+		...(svelteCheckInDevelopment || isProduction && svelteCheckInProduction ? [new SvelteCheckPlugin()] : [])
 	],
 	devtool: isProduction && !sourceMapsInProduction ? false : 'source-map',
 	stats: {
