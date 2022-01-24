@@ -114,6 +114,14 @@ const config: Configuration = {
 				}
 			},
 
+			// Svelte fix for Webpack 5
+			{
+				test: /node_modules\/svelte\/.*\.mjs$/,
+				resolve: {
+					fullySpecified: false
+				}
+			},
+
 			// Required to prevent errors from Svelte on Webpack 5+, omit on Webpack 4
 			// See: https://github.com/sveltejs/svelte-loader#usage
 			{
