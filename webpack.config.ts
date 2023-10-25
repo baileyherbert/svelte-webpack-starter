@@ -72,7 +72,7 @@ const config: Configuration = {
 	resolve: {
 		alias: {
 			// Note: Later in this config file, we'll automatically add paths from `tsconfig.compilerOptions.paths`
-			svelte: path.resolve('node_modules', 'svelte')
+			svelte: path.resolve('node_modules', 'svelte/src/runtime')
 		},
 		extensions: ['.mjs', '.js', '.ts', '.svelte'],
 		mainFields: ['svelte', 'browser', 'module', 'main']
@@ -97,11 +97,6 @@ const config: Configuration = {
 						},
 						emitCss: isProduction,
 						hotReload: isDevelopment,
-						hotOptions: {
-							// List of options and defaults: https://www.npmjs.com/package/svelte-loader-hot#usage
-							noPreserveState: false,
-							optimistic: true,
-						},
 						preprocess: SveltePreprocess({
 							scss: true,
 							sass: true,
@@ -112,15 +107,6 @@ const config: Configuration = {
 							}
 						})
 					}
-				}
-			},
-
-			// Required to prevent errors from Svelte on Webpack 5+, omit on Webpack 4
-			// See: https://github.com/sveltejs/svelte-loader#usage
-			{
-				test: /node_modules\/svelte\/.*\.mjs$/,
-				resolve: {
-					fullySpecified: false
 				}
 			},
 
