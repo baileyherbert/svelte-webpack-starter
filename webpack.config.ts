@@ -46,7 +46,7 @@ const svelteCheckInProduction = true;
 
 import Webpack from 'webpack';
 import WebpackDev from 'webpack-dev-server';
-import SveltePreprocess from 'svelte-preprocess';
+import { sveltePreprocess } from 'svelte-preprocess';
 import Autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CSSMinimizerPlugin from 'css-minimizer-webpack-plugin';
@@ -97,7 +97,7 @@ const config: Configuration = {
 						},
 						emitCss: isProduction,
 						hotReload: isDevelopment,
-						preprocess: SveltePreprocess({
+						preprocess: sveltePreprocess({
 							scss: true,
 							sass: true,
 							postcss: {
@@ -259,7 +259,7 @@ if (useBabel && (isProduction || useBabelInDevelopment)) {
 		}
 	};
 
-	config.module?.rules.unshift({
+	config.module?.rules?.unshift({
 		test: /\.(?:m?js|ts)$/,
 		include: [
 			path.resolve(__dirname, 'src'),
@@ -271,8 +271,8 @@ if (useBabel && (isProduction || useBabelInDevelopment)) {
 		use: loader,
 	});
 
-	const svelte = config.module?.rules.find(rule => {
-		if (typeof rule !== 'object') return false;
+	const svelte = config.module?.rules?.find(rule => {
+		if (typeof rule !== 'object' || rule === null) return false;
 		else if (Array.isArray(rule.use))
 			return rule.use.includes((e: any) => typeof e.loader === 'string' && e.loader.startsWith('svelte-loader'));
 		else if (typeof rule.use === 'object')

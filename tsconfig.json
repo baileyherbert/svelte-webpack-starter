@@ -1,13 +1,15 @@
 {
-	"include": ["src/**/*", "webpack.config.ts"],
+	"include": ["src/**/*", "webpack.config.js"],
 	"exclude": ["node_modules/*", "__sapper__/*", "public/*"],
 	"compilerOptions": {
-		"moduleResolution": "node",
+		"moduleResolution": "bundler",
 		"target": "esnext",
 		"module": "esnext",
 		"importsNotUsedAsValues": "remove",
+		"verbatimModuleSyntax": true,
 		"isolatedModules": true,
 		"esModuleInterop": true,
+		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": false,
 		"baseUrl": ".",
@@ -20,7 +22,8 @@
 	// See: https://github.com/webpack/webpack-cli/issues/2458#issuecomment-846635277
 	"ts-node": {
 		"compilerOptions": {
-			"module": "commonjs"
+			"module": "commonjs",
+			"verbatimModuleSyntax": false
 		}
 	}
 }
